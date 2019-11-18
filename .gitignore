@@ -1,0 +1,6 @@
+inventario/
+roles/
+*.retry
+*.log
+tmp/
+.vagrant/

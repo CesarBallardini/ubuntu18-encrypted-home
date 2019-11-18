@@ -1,14 +1,19 @@
 # README
 
+# eCryptfs
 
-# Referencias
+Desde Ubuntu 18.04 no se recomienda más el uso de eCryptfs porque sus defectos pueden
+provocar pérdida de datos.
 
-* https://www.lifewire.com/should-you-encrypt-home-folder-2202069
+Durante varios años Ubuntu ofreció la posibilidad de cifrar el HOME del usuario mediante eCryptfs. A partir de Bionic (18.04) esa opción no existe más.
 
-* https://www.howtogeek.com/116032/how-to-encrypt-your-home-folder-after-installing-ubuntu/
+Lo recomendado es utilizar cifrado a nivel de dispositivo de bloques, por ejemplo para toda la partición HOME, /, etc.
 
-* https://www.linuxuprising.com/2018/04/how-to-encrypt-home-folder-in-ubuntu.html
+Por motivos de interoperabilidad con equipos portátiles que usaban eCryptfs se desarrolló el siguiente tutorial que permite realizar una 
+instalación de Ubuntu 18.04 **sin cifrado en el HOME de un usuario dado** y pasarlo a una instalación **con cifrado en el HOME de un usuario dado**.
 
-* https://help.ubuntu.com/community/EncryptedPrivateDirectory
+* [Cómo pasar de HOME sin cifrar a HOME cifrado](README.escryptfs.md)
+* http://ecryptfs.org/ homepage
+* https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/1756840 Buggy, under-maintained, not fit for main anymore; alternatives exist / 2018-03-19
 
-* https://vitux.com/how-to-encrypt-linux-partitions-with-veracrypt-on-ubuntu/
+
