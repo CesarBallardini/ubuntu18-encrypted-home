@@ -126,24 +126,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     proxy_host_port = ENV['all_proxy'] || ENV['http_proxy']  || ""
     proxy_host_port = if proxy_host_port.empty? then "" else proxy_host_port.scan(/\/\/([0-9\.]*):/)[0][0]+':'+proxy_host_port.scan(/:([0-9]*)$/)[0][0] end
 
-#    config.vm.provision "ansible-provision", type: :ansible do |ansible|
-#      ansible.playbook = "site.yml"
-#      ansible.config_file = "./vagrant-inventory/ansible.cfg"
-#      ansible.inventory_path = "./vagrant-inventory/"
-#      ansible.verbose= "-vv"
-#      ansible.become = false
-#      # heredo la configuracion de Proxy del entorno del host Vagrant:
-#      ansible.extra_vars = {
-#        organizacion: "Mi organizacion",
-#        all_proxy:   ENV['all_proxy']   || ENV['http_proxy']  || "",
-#        http_proxy:  ENV['http_proxy']  || "",
-#        https_proxy: ENV['https_proxy'] || "",
-#        ftp_proxy:   ENV['ftp_proxy']   || "",
-#        no_proxy:    ENV['no_proxy']    || "",
-#        tinyproxy_listen_ip: '192.168.33.11',
-#        tinyproxy_default_upstream: "#{proxy_host_port}",
-#        tinyproxy_allow: [ '192.168.33.11/24', '192.168.11.0/24', '192.168.20.0/22' ]
-#      }
-#    end
-
 end
