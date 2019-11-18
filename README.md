@@ -17,3 +17,26 @@ instalación de Ubuntu 18.04 **sin cifrado en el HOME de un usuario dado** y pas
 * https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/1756840 Buggy, under-maintained, not fit for main anymore; alternatives exist / 2018-03-19
 
 
+#  Block device encryption such as via dm-crypt 
+
+TODO
+
+#  Block device encryption such as via LUKS
+
+TODO
+
+#  fscrypt front-end to filesystem-native encryption (ext4)
+
+TODO
+
+# Encrypted Private Directory
+
+TODO
+
+https://help.ubuntu.com/community/EncryptedPrivateDirectory
+
+# How to Encrypt Linux Partitions with VeraCrypt on Ubuntu
+
+TODO
+
+https://vitux.com/how-to-encrypt-linux-partitions-with-veracrypt-on-ubuntu/

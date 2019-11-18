@@ -27,7 +27,7 @@ predeterminada cuando usamos Vagrant boxes.
 ```bash
 vagrant ssh -c '
 
-export CUENTA=cballard31
+export CUENTA=cballard
 export PASSWD=perico
 
 sudo useradd -s /bin/bash -m -m "${CUENTA}"
@@ -39,7 +39,7 @@ echo "${CUENTA}:${PASSWD}" | sudo chpasswd
 * ahora desde el host:
 
 ```bash
-export CUENTA=cballard31
+export CUENTA=cballard
 export PASSWD=perico
 
 # verificamos que la cuenta y su contraseña funcionan
@@ -59,7 +59,7 @@ sshpass -p "${PASSWD}" vagrant ssh -c 'mkdir ~/archivos/ ; find  /srv/usr-share/
 * Dentro de la VM:
 
 ```bash
-export CUENTA=cballard31
+export CUENTA=cballard
 export PASSWD=perico
 
 sudo apt-get install -y ecryptfs-utils
@@ -67,7 +67,7 @@ sudo apt-get install -y ecryptfs-utils
 printf "%s" "${PASSWD}" | ecryptfs-add-passphrase --fnek -
 
 
-sudoecryptfs-migrate-home -u "${CUENTA}"
+sudo ecryptfs-migrate-home -u "${CUENTA}"
 
 # Al final muestra el siguiente mensaje de advertencia:
 
@@ -116,6 +116,41 @@ sshpass -p "${PASSWD}" vagrant ssh -c  "ls -la ~/"    --plain -- -l "${CUENTA}"
 
 
 ```
+
+## 4. Opcional: crear una cuenta con HOME cifrado
+
+
+* creamos la cuenta (dentro de la VM con permisos de administrador)
+
+```bash
+
+vagrant ssh -c '
+
+export OTRA_CUENTA=jballard
+export OTRA_PASSWD=tunante
+
+# si hiciera falta eliminar la cuenta por una prueba anterior
+#sudo userdel -rf ${OTRA_CUENTA} ; sudo rm -rf /home/.ecryptfs/${OTRA_CUENTA}/
+
+echo -e "${OTRA_PASSWD}\n${OTRA_PASSWD}\n\n\n\n\n\nY\n" | sudo adduser --shell /bin/bash --encrypt-home "${OTRA_CUENTA}"
+sudo usermod -aG sudo "${OTRA_CUENTA}"
+echo "${OTRA_CUENTA}:${OTRA_PASSWD}" | sudo chpasswd
+'
+
+```
+
+* ingresamos con las nuevas credenciales
+
+```bash
+sshpass -p "${OTRA_PASSWD}" vagrant ssh -c  "ls -la ~/"    --plain -- -l "${OTRA_CUENTA}"
+```
+
+* Guardamos en lugar seguro la passphrase de recuperación
+
+```bash
+sshpass -p "${OTRA_PASSWD}" vagrant ssh -c  "echo "${OTRA_PASSWD}" | ecryptfs-unwrap-passphrase ~/.ecryptfs/wrapped-passphrase" --plain -- -l "${OTRA_CUENTA}"
+```
+
 
 # Notas
 
@@ -181,10 +216,6 @@ drwxr-xr-x 4 cballard cballard 4096 Nov 18 15:43 ..
 * https://www.howtogeek.com/116032/how-to-encrypt-your-home-folder-after-installing-ubuntu/
 
 * https://www.linuxuprising.com/2018/04/how-to-encrypt-home-folder-in-ubuntu.html
-
-* https://help.ubuntu.com/community/EncryptedPrivateDirectory
-
-* https://vitux.com/how-to-encrypt-linux-partitions-with-veracrypt-on-ubuntu/
 
 * para averiguar cuáles directorios copiar y no todo el `/usr/share/doc/` del host, usé:
 
